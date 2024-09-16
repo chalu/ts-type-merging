@@ -8,13 +8,14 @@ app.use(express.json());
 
 app.get("/", (req: Request, response: Response) => {
 	// this added field is fine
-	console.log(req.userId);
+    console.log(req.userId);
 
-	response
-		.status(200)
-		.added("something") // <- should be flagged since status() returns void ?
-		.json({ message: "Hello!" }); 
-        // ^ should not be callable since it was "omitted" and "never-ed" ?
+    response.status(200).added('something').json({ message: 'Hello!' });
+    // since src/@types/index.d.ts sets .status() to return void
+    // I was hoping we should not be able to call .added()
+    
+    // Also, from the line below, the return of .json() should not be callable
+    // response.status(200).json({ message: 'Hello!' }).added('something');
 });
 
 const PORT = 3000;
