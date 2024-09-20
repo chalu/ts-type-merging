@@ -12,8 +12,8 @@ app.get("/", (request: Request, response: Response) => {
 
 	response
 		.status(200)
-		// .sendStatus(201)
         .links({ next: 'http://localhost:3000/next' });
+
 });
 
 const PORT = 3000;
