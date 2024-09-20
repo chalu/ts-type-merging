@@ -6,19 +6,14 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.get("/", (req: Request, response: Response) => {
+app.get("/", (request: Request, response: Response) => {
 	// this added field is fine
-    console.log(req.userId);
+	console.log(request.userId);
 
-    response
-        .status(200)
-        .added('something')
-        .json({ message: 'Hello!' })
-        .added('something else');
-
-    // since src/@types/index.d.ts sets .status() to return void
-    // I was hoping we should not be able to call .added()
-    // Also, the .json() should not be callable nor its return type
+	response
+		.status(200)
+		// .sendStatus(201)
+        .links({ next: 'http://localhost:3000/next' });
 });
 
 const PORT = 3000;
